@@ -1,14 +1,5 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import type { LearningPath } from '../types';
-
-const API_KEY = process.env.API_KEY;
-
-if (!API_KEY) {
-  throw new Error("API_KEY environment variable not set");
-}
-
-const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 const responseSchema = {
     type: Type.ARRAY,
@@ -63,6 +54,14 @@ const responseSchema = {
 
 
 export async function generateLearningPath(topic: string, language: string): Promise<LearningPath> {
+  const API_KEY = process.env.API_KEY;
+
+  if (!API_KEY) {
+    throw new Error("API_KEY environment variable not set");
+  }
+
+  const ai = new GoogleGenAI({ apiKey: API_KEY });
+
   const prompt = `You are an expert curriculum designer for a platform called FlexiLearn. Your task is to create a personalized, comprehensive, and structured learning path for a beginner on the topic of "${topic}". 
 The learning path should be broken down into logical modules, typically between 5 and 8 modules. 
 For each module, provide a concise title, a brief description, a list of key sub-topics to cover, and a list of 2-4 suggested online resources (like articles, videos, or interactive tutorials) with their names, URLs, and types.

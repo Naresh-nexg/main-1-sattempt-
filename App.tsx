@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import type { LearningPath } from './types';
 import { translations, Language } from './i18n/translations';
@@ -36,7 +35,7 @@ export default function App() {
     } finally {
       setIsLoading(false);
     }
-  }, [language, t.errorTopic, t.errorAI]);
+  }, [language, t]);
 
   return (
     <div className="min-h-screen bg-black text-gray-100 font-sans">
