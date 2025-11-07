@@ -1,5 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { LearningPath } from '../types';
+import type { Language } from '../i18n/translations';
 
 const responseSchema = {
     type: Type.ARRAY,
@@ -52,8 +53,14 @@ const responseSchema = {
     }
   };
 
+const languageMap: Record<Language, string> = {
+  en: 'English',
+  es: 'Español',
+  fr: 'Français',
+};
 
-export async function generateLearningPath(topic: string, language: string): Promise<LearningPath> {
+
+export async function generateLearningPath(topic: string, language: Language): Promise<LearningPath> {
   const API_KEY = process.env.API_KEY;
 
   if (!API_KEY) {
@@ -61,11 +68,13 @@ export async function generateLearningPath(topic: string, language: string): Pro
   }
 
   const ai = new GoogleGenAI({ apiKey: API_KEY });
+  
+  const fullLanguageName = languageMap[language];
 
   const prompt = `You are an expert curriculum designer for a platform called FlexiLearn. Your task is to create a personalized, comprehensive, and structured learning path for a beginner on the topic of "${topic}". 
 The learning path should be broken down into logical modules, typically between 5 and 8 modules. 
 For each module, provide a concise title, a brief description, a list of key sub-topics to cover, and a list of 2-4 suggested online resources (like articles, videos, or interactive tutorials) with their names, URLs, and types.
-The entire response must be in ${language}.
+The entire response must be in ${fullLanguageName}.
 Ensure the moduleNumber for each module is sequential, starting from 1.
 The resource types should be one of: 'video', 'article', 'interactive', 'book', 'documentation'.
 `;
