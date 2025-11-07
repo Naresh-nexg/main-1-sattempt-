@@ -1,3 +1,4 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import type { LearningPath } from '../types';
 import type { Language } from '../i18n/translations';
@@ -57,6 +58,11 @@ const languageMap: Record<Language, string> = {
   en: 'English',
   es: 'Español',
   fr: 'Français',
+  ta: 'Tamil',
+  te: 'Telugu',
+  kn: 'Kannada',
+  ml: 'Malayalam',
+  ur: 'Urdu',
 };
 
 
